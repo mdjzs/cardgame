@@ -1,0 +1,858 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        html,body {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: url('img/背景.jpg') no-repeat center/cover;
+        }
+        #wrap {
+            width: 70%;
+            height: 80%;
+            position: relative;
+        }
+        #wrapper {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            left: 0;
+            top:0;
+            animation: first 2s forwards;
+        }
+        .spa {
+            position: absolute;
+            left: 43%;
+            top:30%;
+            animation: twinkle 1s infinite;
+            font-size: 30px;
+        }
+        @keyframes first {
+            0%{}
+            50%{}
+            100%{background: url("img/界面1.png") no-repeat center/cover}
+        }
+        @keyframes second {
+            0%{}
+            50%{}
+            100%{background: url("img/timg (1).jpg") no-repeat center/cover}
+        }
+        @keyframes twinkle {
+            0%{color: white}
+            50%{color: rgba(0,0,0,0)}
+            100%{color: white}
+        }
+        #initial {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            left: 0;
+            top:0;
+            animation: second 2s 1 forwards;
+            display: none;
+        }
+        #start {
+            position: absolute;
+            left: 20px;
+            top:50%;
+
+        }
+        #start img {
+            animation: imgs 1s infinite;
+        }
+        @keyframes imgs {
+            0%{width: 200px}
+            50%{width: 250px}
+            100%{width: 200px}
+        }
+        #rule {
+            position: absolute;
+            left: 20px;
+            top:70%;
+
+        }
+        #words {
+            position: absolute;
+            left: 35%;
+            top:20%;
+            width: 300px;
+            height: 500px;
+            background-color: lightgray;
+            display: none;
+        }
+        .rules {
+            color: lightcoral;
+            display: inline-block;
+        }
+        #words button {
+            position: absolute;
+            left: 80%;
+            top:5%;
+        }
+        #wraps {
+            width: 100%;
+            height: 100%;
+            display: none;
+        }
+        #box {
+            width: 20%;
+            height: 100%;
+            float: left;
+            perspective: 1500px;
+            transition: all 2s;
+        }
+        #bacg {
+            width: 80%;
+            height: 100%;
+            background: url("img/背景右1.png") no-repeat center/cover  ;
+            float: left;
+        }
+
+        @keyframes ani {
+            0% {transform: rotateY(0deg)}
+            50%{transform: rotateY(90deg)}
+            100%{transform: rotateY(180deg)}
+        }
+        @keyframes anis {
+            0% {transform: rotateY(180deg) rotateZ(0deg)}
+            50%{transform: rotateY(270deg) rotateZ(180deg)}
+            100%{transform: rotateY(360deg) rotateZ(360deg)}
+        }
+        @keyframes sca {
+            0% {transform: rotateZ(0deg)}
+            50%{transform: rotateZ(180deg)}
+            100%{transform: rotateZ(360deg)}
+        }
+        #images {
+            width: 100px;
+            position: absolute;
+            left: 50px;
+            top: 600px;
+            z-index: 100;
+        }
+        #rush {
+            width: 100px;
+            position: absolute;
+            left: 50px;
+            top: 150px;
+            z-index: 100;
+        }
+        #btn {
+            position: absolute;
+            right: 50px;
+            bottom: 30px;
+        }
+        #wraps p {
+            position: absolute;
+            font-size: 30px;
+            left: 1320px;
+            color: white;
+        }
+        #wraps p:first-child {
+            top: 100px;
+        }
+        #wraps p:nth-child(2) {
+            top: 530px;
+        }
+        #bacg span {
+            color: white;
+            font-size: 30px;
+            display: inline-block;
+            padding-top: 10px;
+        }
+        #cases {
+            width: 100%;
+            height: 100%;
+            display: none;
+            /*display: flex;*/
+            align-items: center;
+            justify-content: center;
+            background-color: rgba(0,0,0,0.4);
+            position: absolute;
+            left: 0;
+            top: 0;
+            z-index: 200;
+        }
+        #cas {
+            width: 800px;
+            height: 300px;
+            background-color: white;
+            text-align: center;
+            color: orange;
+            line-height: 300px;
+            font-size: 80px;
+        }
+        #cas button {
+            position: absolute;
+            left: 1230px;
+            right: 670px;
+        }
+
+    </style>
+</head>
+<body>
+<div id="wrap">
+    <div id="wrapper">
+        <span class="spa">点任意位置跳过</span>
+    </div>
+    <div id="initial">
+        <div id="start">
+            <img src="img/开始2.png">
+        </div>
+        <div id="rule">
+            <img src="img/规则.png" width="150px" style="opacity: 0.8">
+        </div>
+        <div id="words">
+            <div style="float: left;width: 100px;height: 500px">
+                <span class="rules" style="padding-top: 50px;padding-left: 60px">规则:</span><br/>
+                <span class="rules" style="padding-top: 187px;padding-left: 29px">单牌分值:</span><br/>
+                <span class="rules" style="padding-top: 23px;padding-left: 29px">特殊分值:</span>
+            </div>
+            <div style="float: left;width: 200px;height: 500px;display: flex;align-items: center;justify-content: center">
+                <div style="width: 180px;height: 400px">
+                    双方有相同的初始积分，每回合双方各持5张牌，翻开比大小，若分数相同则比较最大牌面大小,
+                    若最大牌面相同则比较花色，若花色相同则为平局(花色:黑桃>红桃>方块>草花)。失败方减一分，
+                    获胜方不变，平局不变,积分置0为输。<br/>
+                    A-K:1分  小王:2分  小王:3分<br/>
+                    <span class="rules">A-10:</span>对子:3分 三对子:5分 四对子:8分<br/>
+                    <span class="rules">J-K:</span>对子:4分 三对子:6分 四对子:9分<br/><br/>
+                    顺子:10分<br/>
+                    同花顺:15分
+                </div>
+            </div>
+            <button onclick="closes()">关闭</button>
+        </div>
+    </div>
+    <div id="wraps">
+        <p>敌方</p>
+        <p>我方</p>
+        <img src="img/发牌.png" id="images">
+        <p style="left: 65px;top: 660px">发 牌</p>
+        <img src="img/洗牌.png" id="rush">
+        <p style="left: 65px;top: 90px">洗 牌</p>
+        <div id="box"></div>
+        <div id="bacg">
+            <button id="btn" onclick="turn()">翻翻翻</button>
+            <span>积分:</span><span id="integral">2分</span><br/>
+            <span style="padding-top: 660px">积分:</span><span id="integrals">2分</span>
+        </div>
+    </div>
+</div>
+<div id="cases" >
+    <div id="cas">
+        <span id="spanWords"></span>
+        <button onclick="shuts()">点击重新开始</button>
+    </div>
+</div>
+<!--<video  id="bg"  controls  muted autoplay>
+    <source src="audio/1.mp3" type="audio/ogg" />
+    Your browser does not support the audio element.
+</video>//自动播放但自动静音
+<p id="demo"></p>-->
+<audio  id="bg"   loop>
+    <source src="audio/2.mp3" type="audio/ogg" />
+</audio>
+<audio  id="bgs">
+    <source src="audio/837.mp3" type="audio/ogg"/>
+</audio>
+<script>
+    var bg = document.getElementById('bg');
+    var bgs = document.getElementById('bgs');
+
+
+    var wraps = document.getElementById('wraps');
+    var wrapper = document.getElementById('wrapper');
+    var initial = document.getElementById('initial');
+    var start = document.getElementById('start');
+    var rule = document.getElementById('rule');
+    var words = document.getElementById('words');
+    wrapper.onclick = function () {
+        wrapper.style.display = 'none';
+        initial.style.display = 'block';
+        bg.play()
+    };
+    start.onclick = function () {
+        initial.style.display = 'none';
+        wraps.style.display = 'block';
+    };
+    rule.onclick = function () {
+        words.style.display = 'block';
+    };
+    function closes() {
+        words.style.display = 'none';
+    }
+
+    /*游戏页面*/
+    /*牌面记1为A，JQK为11，12，13，   小王为15，大王为16*/
+    var login = true;
+    var logins = false;
+    var arr = ['1','2','3','4','5','6','7','8','9','10','11','12','13','15','16'];
+    var brr = ['Spade','Heart','Diamond','Club'];//黑桃、红桃、方块、草花
+    var crr = [];/*创建对象数组*/
+    var box = document.getElementById('box');
+    for(var i=0;i<arr.length;i++) {
+        var obj = {};
+        if(i<=12) {
+            for(var j=0;j<brr.length;j++) {
+                var objs = {};
+                objs.name = brr[j];
+                objs.id = arr[i];
+                objs.grade = '1';
+                objs.imgs = 'img/pukeImage/' + Number(4*i+j) + '.jpg';
+                crr.push(objs);
+            }
+        }
+        else if(i==13) {
+            obj.name = 'JOKER';
+            obj.id = arr[13];
+            obj.grade = '2';
+            obj.imgs = 'img/pukeImage/52.jpg';
+            crr.push(obj);
+        }
+        else {
+            obj.name = 'JOKER';
+            obj.id = arr[14];
+            obj.grade = '3';
+            obj.imgs = 'img/pukeImage/53.jpg';
+            crr.push(obj);
+        }
+    }
+    //console.log(crr);
+
+    //创建卡牌
+    function createDom() {
+        for(var i=0;i<crr.length;i++) {
+            var div = document.createElement('div');
+            div.style.width = '180px';
+            div.style.height = '260px';
+            div.style.transformStyle = 'preserve-3d';
+            div.style.transition = 'all 2s';
+            //div.setAttribute('onclick','move(this)');
+            for(var j=0;j<=1;j++) {
+                var divs = document.createElement('div');
+                divs.style.width = '180px';
+                divs.style.height = '260px';
+
+                if(j==0) {
+                    divs.style.backgroundImage = 'url(' + crr[i].imgs + ')';
+                    divs.style.transform = 'rotateY(180deg)'
+                }
+                if(j==1) {
+                    divs.style.backgroundImage = 'url(img/卡牌背面.png)';
+                }
+                divs.style.backgroundSize = 'cover';
+                div.appendChild(divs);
+                divs.style.position = 'absolute';
+            }
+            box.appendChild(div);
+            div.style.position = 'absolute';
+            div.style.left = '10px';
+            div.style.top = '300px';
+        }
+    }
+    createDom();
+    var t = box.children;
+    //console.log(t);
+    var a = [];/*0-53*/
+    for(var z=0;z<crr.length;z++) {
+        a[a.length]=z;
+    }
+    var c = [];/*获取选取的对象数组下标*/
+
+    /*发牌*/
+    images.onclick = function () {
+        if(login) {
+            /*bg.pause();*/
+            bgs.play();
+            for(var i=0;i<5;i++) {
+                var temp = parseInt(Math.random()*a.length);
+                t[a[temp]].style.left = Number(300 + 200*i) + 'px';
+                t[a[temp]].style.top = '50px';
+                //t[a[temp]].style.transform = 'rotateZ(360deg)';
+                t[a[temp]].style.animation = 'sca 1.5s linear forwards';
+                c[c.length] = a[temp];
+                a.splice(temp,1);
+            }
+            for(var j=0;j<5;j++) {
+                var temps = parseInt(Math.random()*a.length);
+                t[a[temps]].style.left = Number(300 + 200*j) + 'px';
+                t[a[temps]].style.top = '450px';
+                //t[a[temps]].style.transform = 'rotateZ(360deg)';
+                t[a[temps]].style.animation = 'sca 1.5s linear forwards';
+                c[c.length] = a[temps];
+                a.splice(temps,1);
+            }
+            login = false;
+            logins = true;
+        }
+    };
+
+    //洗牌
+    rush.onclick = function () {
+        if(!login) {
+            for(var i=0;i<c.length;i++) {
+                t[c[i]].style.left = '10px';
+                t[c[i]].style.top = '300px';
+                t[c[i]].style.animation = 'anis 1.5s linear forwards';
+            }
+            c=[];
+            for(var z=0;z<crr.length;z++) {
+                a[z]=z;
+            }
+            login = true;
+        }
+    };
+
+    /*翻转并判断分值*/
+    function turn() {
+        if(logins) {
+            for(var i=0;i<c.length;i++) {
+                t[c[i]].style.animation = 'ani 2s 1s linear forwards';
+            }
+            compare();
+            logins = false;
+        }
+
+    }
+
+    var int = 2;
+    var ints = 2;
+
+    /*判断输赢*/
+    function compare() {
+        var t = 0;
+        var timer = null;
+        function getgrade() {
+            t += 0.2;
+            if(t>=1) {
+                /*获取牌面*/
+                var ar = [];
+                var br = [];
+                /*获取花色*/
+                var cr = [];
+                var dr = [];
+                for(var j=0;j<5;j++) {
+                    ar.push(crr[c[j]].id);
+                    cr.push(crr[c[j]].name);
+                }
+                for(var z=5;z<c.length;z++) {
+                    br.push(crr[c[z]].id);
+                    dr.push(crr[c[z]].name);
+                }
+
+                console.log(cr);
+                console.log(dr);
+                /*牌面排序*/
+                for(var i=0;i<ar.length-1;i++) {
+                    var temp=0;
+                    var temps = 0;
+                    for(var s=0;s<ar.length-1-i;s++) {
+                        var a = Number(ar[s]);
+                        var b = Number(ar[s+1]);
+                        if(a>b) {
+                            temp = ar[s];
+                            ar[s] = ar[s+1];
+                            ar[s+1] = temp;
+
+                            temps = cr[s];
+                            cr[s] = cr[s+1];
+                            cr[s+1] = temps;
+                        }
+                    }
+                }
+                for(var i=0;i<br.length-1;i++) {
+                    var temp=0;
+                    var temps=0;
+                    for(var s=0;s<br.length-1-i;s++) {
+                        var a = Number(br[s]);
+                        var b = Number(br[s+1]);
+                        if(a>b) {
+                            temp = br[s];
+                            br[s] = br[s+1];
+                            br[s+1] = temp;
+
+                            temps = dr[s];
+                            dr[s] = dr[s+1];
+                            dr[s+1] = temps;
+                        }
+                    }
+                }
+                /*console.log(ar);
+                console.log(br);*/
+
+                /*去重*/
+                //去重后的数组
+                var ars = [];
+                var brs = [];
+                for(var i=0;i<ar.length;i++) {
+                    if(ars.indexOf(ar[i])==-1) {
+                        ars[ars.length] = ar[i];
+                    }
+                }
+
+                console.log(ar);
+                console.log(ars);
+                for(var i=0;i<br.length;i++) {
+                    if(brs.indexOf(br[i])==-1) {
+                        brs[brs.length] = br[i];
+                    }
+                }
+
+                /*获取最大牌面的全部花色*/
+                var cardColor = [];
+                var cardColors = [];
+                var index = ar.indexOf(ars[ars.length-1]);
+                var indexs = br.indexOf(brs[brs.length-1]);
+                console.log(index);
+                console.log(indexs);
+                for(var i=index;i<cr.length;i++) {
+                    cardColor[cardColor.length] = cr[i];
+                }
+                for(var i=indexs;i<dr.length;i++) {
+                    cardColors[cardColors.length] = dr[i];
+                }
+                console.log(cardColor);
+                console.log(cardColors);
+
+                /*console.log(br);
+                console.log(brs);*/
+
+                //敌我双方分值
+                var gra = 0;
+                var gras = 0;
+                /*判断顺子*/
+                if(Number(ar[0] + 1) == Number(ar[1])&&Number(ar[0] + 2) == Number(ar[2])&&
+                    Number(ar[0] + 3) == Number(ar[3])&&Number(ar[0] + 4) == Number(ar[4])) {
+                    if(cr[0]==cr[1]&&cr[0]==cr[2]&&cr[0]==cr[3]&&cr[0]==cr[4]) {
+                        gra = 15;
+                    }
+                    gra = 10;
+                }
+                /*判断单牌、对子、三对子、四对子分值*/
+                //单牌A-K:1分 小王：2分 大王：3分
+                //多牌：A-10    对子：3分 三对子：5分 四对子：8分
+                //      J-K     对子：4分 三对子：6分 四对子：9分
+                else {
+                    for(var i=0;i<ars.length;i++) {
+                        var index = ar.indexOf(ars[i]);
+                        var count = 0;
+                        while(index>=0) {
+                            count++;
+                            index = ar.indexOf(ars[i],index+1);
+                        }
+                        if(count == 1) {
+                            if(ars[i]=='15') {
+                                gra+=2
+                            }
+                            else if(ars[i]=='16') {
+                                gra+=3;
+                            }
+                            else {
+                                gra+=1;
+                            }
+                        }
+                        else if(count==2) {
+                            if(ars[i]==11||ars[i]==12||ars[i]==13) {
+                                gra +=4;
+                            }
+                            else {
+                                gra +=3;
+                            }
+                        }
+                        else if(count==3) {
+                            if(ars[i]==11||ars[i]==12||ars[i]==13) {
+                                gra +=6;
+                        }
+                            else {
+                                gra +=5;
+                            }
+                        }
+                        else if(count==4) {
+                            if(ars[i]==11||ars[i]==12||ars[i]==13) {
+                                gra +=9;
+                            }
+                            else {
+                                gra +=8;
+                            }
+                        }
+                    }
+                }
+                console.log(gra);
+
+                if(Number(br[0] + 1) == Number(br[1])&&Number(br[0] + 2) == Number(br[2])&&
+                    Number(br[0] + 3) == Number(br[3])&&Number(br[0] + 4) == Number(br[4])) {
+                    if(dr[0]==dr[1]&&dr[0]==dr[2]&&dr[0]==dr[3]&&dr[0]==dr[4]) {
+                        gras = 15;
+                    }
+                    gras = 10;
+                }
+                else {
+                    for(var i=0;i<brs.length;i++) {
+                        var index = br.indexOf(brs[i]);
+                        var count = 0;
+                        while(index>=0) {
+                            count++;
+                            index = br.indexOf(brs[i],index+1);
+                        }
+                        if(count == 1) {
+                            if(brs[i]=='15') {
+                                gras+=2
+                            }
+                            else if(brs[i]=='16') {
+                                gras+=3;
+                            }
+                            else {
+                                gras+=1;
+                            }
+                        }
+                        else if(count==2) {
+                            if(brs[i]==11||brs[i]==12||brs[i]==13) {
+                                gras +=4;
+                            }
+                            else {
+                                gras +=3;
+                            }
+                        }
+                        else if(count==3) {
+                            if(brs[i]==11||brs[i]==12||brs[i]==13) {
+                                gras +=6;
+                            }
+                            else {
+                                gras +=5;
+                            }
+                        }
+                        else if(count==4) {
+                            if(brs[i]==11||brs[i]==12||brs[i]==13) {
+                                gras +=9;
+                            }
+                            else {
+                                gras +=8;
+                            }
+                        }
+                    }
+                }
+                console.log(gras);
+                /*比较分值，输出结果*/
+                if(gra<gras) {
+                    int--;
+                    integral.innerHTML = int + '分';
+                    alert('敌方:' + gra  + '\n' +  '我方:' + gras +'\n' + '您赢了');
+                }
+                else if(gra>gras) {
+                    ints--;
+                    integrals.innerHTML = ints + '分';
+                    alert('敌方:' + gra  + '\n' +  '我方:' + gras +'\n' + '您输了');
+                }
+                else  {
+                    var arss = Number(ars[ars.length-1]);
+                    var brss = Number(brs[brs.length-1]);
+                    if(arss>brss) {
+                        ints--;
+                        integrals.innerHTML = ints + '分';
+                        alert('敌方:' + gra + '  '+  '最大牌面'+ invesion(ars) +  '\n'
+                            +  '我方:' + gras + '  '+ '最大牌面'+ invesion(brs) +'\n' + '您输了');
+                    }
+                    else if(arss<brss) {
+                        int--;
+                        integral.innerHTML = int + '分';
+                        alert('敌方:' + gra + '  '+  '最大牌面'+ invesion(ars) +  '\n'
+                            +  '我方:' + gras + '  '+ '最大牌面'+ invesion(brs) +'\n' + '您赢了');
+                    }
+                    else {
+                        /*最大牌面的花色转化数值数组*/
+                        var bs = [];
+                        var cs = [];
+                        colorCard(cardColor,cardColors,bs,cs);
+                        if(bs[bs.length-1]>cs[cs.length-1]) {
+                            ints--;
+                            integrals.innerHTML = ints + '分';
+                            alert('敌方:' + gra + '  '+  '最大牌面:'+ invesion(ars) + '  '+
+                                '花色:' + cardColor[cardColor.length-1] + '\n'
+                                +  '我方:' + gras + '  '+ '最大牌面:'+ invesion(brs) + '  '+
+                                '花色:' + cardColors[cardColors.length-1] + '\n' + '您输了');
+                        }
+                        else if(bs[bs.length-1]<cs[cs.length-1]) {
+                            int--;
+                            integral.innerHTML = int + '分';
+                            alert('敌方:' + gra + '  '+  '最大牌面:'+ invesion(ars) + '  '+
+                                '花色:' + cardColor[cardColor.length-1] + '\n'
+                                +  '我方:' + gras + '  '+ '最大牌面:'+ invesion(brs) + '  '+
+                                '花色:' + cardColors[cardColors.length-1] + '\n' + '您赢了');
+                        }
+                        else {
+                            alert('敌方:' + gra + '  '+  '最大牌面:'+ invesion(ars) + '  '+
+                                '花色:' + cardColor[cardColor.length-1] + '\n'
+                                +  '我方:' + gras + '  '+ '最大牌面:'+ invesion(brs) + '  '+
+                                '花色:' + cardColors[cardColors.length-1] + '\n' + '平局');
+                        }
+
+                    }
+                }
+                if(int == 0) {
+                    spanWords.innerHTML = '这局您赢了';
+                    cases.style.display = 'flex';
+                }
+                if(ints == 0) {
+                    spanWords.innerHTML = '这局您输了';
+                    cases.style.display = 'flex';
+                }
+                clearInterval(timer);
+            }
+        }
+        timer = setInterval(getgrade,1000);
+    }
+
+    /*转换真正牌面*/
+    function invesion(arr) {
+        if(arr[arr.length-1]<=10) {
+            return arr[arr.length-1];
+        }
+        if(arr[arr.length-1]==11) {
+            return 'J';
+        }
+        if(arr[arr.length-1]==12) {
+            return 'Q';
+        }
+        if(arr[arr.length-1]==13) {
+            return 'K';
+        }
+        if(arr[arr.length-1]==15) {
+            return 'blackJOKER';
+        }
+        if(arr[arr.length-1]==16) {
+            return 'JOKER';
+        }
+    }
+
+
+    /*比较花色，转化花色为数值并进行排序*/
+    function colorCard(brr,crr,bs,cs) {
+        if(brr.length == 1) {
+            if(brr[0]=='club') {
+                bs[0] = 1;
+            }
+            else if(brr[0] == 'Diamond') {
+                bs[0] = 2;
+            }
+            else if(brr[0] == 'Heart') {
+                bs[0] = 3;
+            }
+            else {
+                bs[0] = 4;
+            }
+        }
+        else {
+            /*转化数值*/
+            for(var i=0;i<brr.length;i++) {
+                if(brr[i]=='club') {
+                    bs[bs.length] = 1;
+                }
+                else if(brr[i] == 'Diamond') {
+                    bs[bs.length] = 2;
+                }
+                else if(brr[i] == 'Heart') {
+                    bs[bs.length] = 3;
+                }
+                else {
+                    bs[bs.length] = 4;
+                }
+            }
+            /*排序*/
+            for(var i=0;i<bs.length-1;i++) {
+                var temp=0;
+                var temps=0;
+                for(var s=0;s<bs.length-1-i;s++) {
+                    var a = Number(bs[s]);
+                    var b = Number(bs[s+1]);
+                    if(a>b) {
+                        temp = bs[s];
+                        bs[s] = bs[s+1];
+                        bs[s+1] = temp;
+
+                        temps = brr[s];
+                        brr[s] = brr[s+1];
+                        brr[s+1] = temps;
+                    }
+                }
+            }
+        }
+        if(crr.length == 1) {
+            if(crr[0]=='club') {
+                cs[0] = 1;
+            }
+            else if(crr[0] == 'Diamond') {
+                cs[0] = 2;
+            }
+            else if(crr[0] == 'Heart') {
+                cs[0] = 3;
+            }
+            else {
+                cs[0] = 4;
+            }
+        }
+        else {
+            for(var i=0;i<crr.length;i++) {
+                if(crr[i]=='club') {
+                    cs[cs.length] = 1;
+                }
+                else if(crr[i] == 'Diamond') {
+                    cs[cs.length] = 2;
+                }
+                else if(crr[i] == 'Heart') {
+                    cs[cs.length] = 3;
+                }
+                else {
+                    cs[cs.length] = 4;
+                }
+            }
+            for(var i=0;i<cs.length-1;i++) {
+                var temp=0;
+                var temps=0;
+                for(var s=0;s<cs.length-1-i;s++) {
+                    var a = Number(cs[s]);
+                    var b = Number(cs[s+1]);
+                    if(a>b) {
+                        temp = cs[s];
+                        cs[s] = cs[s+1];
+                        cs[s+1] = temp;
+
+                        temps = crr[s];
+                        crr[s] = crr[s+1];
+                        crr[s+1] = temps;
+                    }
+                }
+            }
+        }
+        return brr,crr,bs,cs;
+    }
+
+
+    /*重新开始*/
+    function shuts() {
+        if(!login) {
+            cases.style.display = 'none';
+            for(var i=0;i<c.length;i++) {
+                t[c[i]].style.left = '10px';
+                t[c[i]].style.top = '300px';
+                t[c[i]].style.animation = 'anis 1.5s linear forwards';
+            }
+            c=[];
+            for(var z=0;z<crr.length;z++) {
+                a[z]=z;
+            }
+            login = true;
+            /*重置初始积分*/
+            int = 2;
+            ints = 2;
+            integral.innerHTML = int + '分';
+            integrals.innerHTML = ints + '分';
+        }
+    }
+</script>
+</body>
+</html>
